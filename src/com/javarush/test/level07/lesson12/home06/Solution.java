@@ -25,7 +25,7 @@ public class Solution
         Human mother = new Human("mother", false, 30, motherGrandFather, motherGrandMother);
 
         Human son = new Human("son", true, 10, father, mother);
-        Human dauther = new Human("dauther", false, 7, father, mother);
+        Human daughter = new Human("daughter", false, 7, father, mother);
         Human baby = new Human("baby", true, 1, father, mother);
 
         System.out.println(fatherGrandFather);
@@ -37,7 +37,7 @@ public class Solution
         System.out.println(mother);
 
         System.out.println(son);
-        System.out.println(dauther);
+        System.out.println(daughter);
         System.out.println(baby);
     }
 
