@@ -2,6 +2,7 @@ package com.javarush.test.level09.lesson11.home05;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 
 /* Гласные и согласные буквы
 Написать программу, которая вводит с клавиатуры строку текста.
@@ -22,6 +23,22 @@ public class Solution
     public static void main(String[] args) throws Exception
     {
         //напишите тут ваш код
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        String str = reader.readLine();
+        String vowelStr = "";
+        String anotherStr = "";
+
+        char[] charArray = str.toCharArray();
+        for (int i = 0; i < charArray.length; i++)
+        {
+            if (isVowel(charArray[i]))
+                vowelStr += charArray[i] + " ";
+            else
+                anotherStr += charArray[i] + " ";
+        }
+
+        System.out.println(vowelStr);
+        System.out.println(anotherStr);
     }
 
 
