@@ -23,11 +23,7 @@ public class Solution
 
     interface DBObject
     {
-        DBObject initializeIdAndName(long id, String name) {
-            this.id = id;
-            this.name = name;
-            return this;
-        }
+        DBObject initializeIdAndName(long id, String name);
     }
 
     static class User implements DBObject
@@ -39,6 +35,14 @@ public class Solution
         public String toString()
         {
             return String.format("User has name %s, id = %d", name, id);
+        }
+
+        @Override
+        public User initializeIdAndName(long id, String name)
+        {
+            this.id = id;
+            this.name = name;
+            return this;
         }
     }
 
