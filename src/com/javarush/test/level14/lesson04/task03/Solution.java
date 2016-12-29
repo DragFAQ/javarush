@@ -24,11 +24,14 @@ public class Solution
     public static void foodMethods(Food food)
     {
         //тут добавьте вызов методов для переменной food
+        food.onSelect();
+        food.eat();
     }
 
     public static void selectableMethods(Selectable selectable)
     {
         //тут добавьте вызов методов для переменной selectable
+        selectable.onSelect();
     }
 
     interface Selectable
@@ -36,11 +39,17 @@ public class Solution
         void onSelect();
     }
 
-    static class Food
+    static class Food implements Selectable
     {
         public void eat()
         {
             System.out.println("food is eaten");
+        }
+
+        @Override
+        public void onSelect()
+        {
+            System.out.println("food is selected");
         }
     }
 }

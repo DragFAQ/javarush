@@ -8,7 +8,7 @@ public class Solution
 {
     public static void main(String[] args)
     {
-        Object obj = //Add your code here
+        Object obj = new Jerry();//Add your code here
 
         Mouse mouse = (Mouse) obj;
         GreyMouse greyMouse = (GreyMouse) mouse;

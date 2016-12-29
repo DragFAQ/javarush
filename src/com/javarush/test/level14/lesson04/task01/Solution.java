@@ -20,16 +20,16 @@ public class Solution
     public static Building getSchool()
     {
         //измените null на объект класса Building или School
-        return null;
+        return new School();
     }
 
     public static Building getBuilding()
     {
         //измените null на объект класса Building или School
-        return null;
+        return new Building();
     }
 
-    static class School /*Add your code here*/
+    static class School extends Building /*Add your code here*/
     {
         @Override
         public String toString()
