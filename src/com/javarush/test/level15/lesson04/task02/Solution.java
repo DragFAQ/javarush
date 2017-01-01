@@ -9,8 +9,48 @@ public class Solution {
         printMatrix(2, 3, "8");
     }
 
+    public static void printMatrix(int m, int n, Integer value) {
+        System.out.println("Заполняем объектами Integer");
+        printMatrix(m, n, (Object) value);
+    }
+
+    public static void printMatrix(int m, int n, int value) {
+        System.out.println("Заполняем объектами int");
+        printMatrix(m, n, (Object) value);
+    }
+
+    public static void printMatrix(int m, int n, Double value) {
+        System.out.println("Заполняем объектами Double");
+        printMatrix(m, n, (Object) value);
+    }
+
+    public static void printMatrix(int m, int n, double value) {
+        System.out.println("Заполняем объектами double");
+        printMatrix(m, n, (Object) value);
+    }
+
+    public static void printMatrix(int m, int n, Float value) {
+        System.out.println("Заполняем объектами Float");
+        printMatrix(m, n, (Object) value);
+    }
+
+    public static void printMatrix(int m, int n, float value) {
+        System.out.println("Заполняем объектами float");
+        printMatrix(m, n, (Object) value);
+    }
+
     public static void printMatrix(int m, int n, String value) {
         System.out.println("Заполняем объектами String");
+        printMatrix(m, n, (Object) value);
+    }
+
+    public static void printMatrix(int m, int n, Character value) {
+        System.out.println("Заполняем объектами Character");
+        printMatrix(m, n, (Object) value);
+    }
+
+    public static void printMatrix(int m, int n, char value) {
+        System.out.println("Заполняем объектами char");
         printMatrix(m, n, (Object) value);
     }
 
@@ -22,4 +62,6 @@ public class Solution {
             System.out.println();
         }
     }
+
+
 }
