@@ -9,6 +9,19 @@ package com.javarush.test.level15.lesson09.task05;
 5. Выведите в консоль myCat.name
 */
 
-public class Solution {
+public class Solution
+{
     public static Object cat;
+
+    static
+    {
+        class Cat
+        {
+            String name = "Пушок";
+        }
+
+        Cat myCat = new Cat();
+        Solution.cat = myCat;
+        System.out.println(myCat.name);
+    }
 }
