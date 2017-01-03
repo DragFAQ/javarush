@@ -1,9 +1,6 @@
 package com.javarush.test.level15.lesson12.home07;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,10 +10,32 @@ import java.util.List;
 3. Закрой поток ввода методом close().
 */
 
-public class Solution {
+public class Solution
+{
     public static List<String> lines = new ArrayList<String>();
 
-    public static void main(String[] args) {
+    static
+    {
+        try
+        {
+            BufferedReader fileReader = new BufferedReader(new FileReader(Constants.FILE_NAME));
+            String sCurrentLine;
+
+            while ((sCurrentLine = fileReader.readLine()) != null)
+            {
+                lines.add(sCurrentLine);
+            }
+
+            fileReader.close();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args)
+    {
         System.out.println(lines);
     }
 }

@@ -8,5 +8,60 @@ package com.javarush.test.level15.lesson12.home05;
 */
 
 public class Solution {
-}
+    private Solution(Object o1)
+    {
+    }
 
+    private Solution(Object o1, Object o2)
+    {
+    }
+
+    private Solution(Object o1, Object o2, Object o3)
+    {
+    }
+
+    public Solution ()
+    {
+
+    }
+
+    public Solution (Integer i1, Integer i2)
+    {
+
+    }
+
+    public Solution (Integer i1, Integer i2, Integer i3)
+    {
+
+    }
+
+    protected Solution (String s1)
+    {
+
+    }
+
+    protected Solution (String s1, String s2)
+    {
+
+    }
+
+    protected Solution (String s1, String s2, String s3)
+    {
+
+    }
+
+    Solution (Boolean b1)
+    {
+
+    }
+
+    Solution (Boolean b1, Boolean b2)
+    {
+
+    }
+
+    Solution (Boolean b1, Boolean b2, Boolean b3)
+    {
+
+    }
+}

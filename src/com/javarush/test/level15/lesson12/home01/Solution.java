@@ -1,7 +1,9 @@
 package com.javarush.test.level15.lesson12.home01;
 
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 /* Разные методы для разных типов
 1. Считать с консоли данные, пока не введено слово "exit".
@@ -12,24 +14,52 @@ import java.io.IOException;
 2.4. иначе, вызвать метод print для String.
 */
 
-public class Solution {
-    public static void main(String[] args) throws IOException {
+public class Solution
+{
+    public static void main(String[] args) throws IOException
+    {
         //напиште тут ваш код
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        String line = null;
+
+        while (true)
+        {
+            line = reader.readLine();
+            if (line.equals("exit"))
+                break;
+            try
+            {
+                if (line.contains("."))
+                    print(Double.parseDouble(line));
+                else if (Integer.parseInt(line) > 0 && Integer.parseInt(line) < 128)
+                    print(Short.parseShort(line));
+                else
+                    print(Integer.parseInt(line));
+            }
+            catch (NumberFormatException e)
+            {
+                print(line);
+            }
+        }
     }
 
-    public static void print(Double value) {
+    public static void print(Double value)
+    {
         System.out.println("Это тип Double, значение " + value);
     }
 
-    public static void print(String value) {
+    public static void print(String value)
+    {
         System.out.println("Это тип String, значение " + value);
     }
 
-    public static void print(short value) {
+    public static void print(short value)
+    {
         System.out.println("Это тип short, значение " + value);
     }
 
-    public static void print(Integer value) {
+    public static void print(Integer value)
+    {
         System.out.println("Это тип Integer, значение " + value);
     }
 }
