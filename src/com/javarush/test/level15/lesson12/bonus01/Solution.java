@@ -18,11 +18,33 @@ import java.io.InputStreamReader;
 public class Solution {
     static {
         //add your code here - добавьте код тут
+        reset();
     }
 
     public static Flyable result;
 
     public static void reset() {
         //add your code here - добавьте код тут
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+        try
+        {
+            String type = reader.readLine();
+            switch (type)
+            {
+                case "helicopter":
+                    result = new Helicopter();
+                    break;
+                case "plane":
+                    result = new Plane(Integer.parseInt(reader.readLine()));
+                    break;
+            }
+            reader.close();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
     }
 }

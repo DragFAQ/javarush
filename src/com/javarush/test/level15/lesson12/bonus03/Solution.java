@@ -3,6 +3,8 @@ package com.javarush.test.level15.lesson12.bonus03;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.InterruptedIOException;
+import java.math.BigInteger;
 
 /* Факториал
 Написать метод, который вычисляет факториал - произведение всех чисел от 1 до введенного числа включая его.
@@ -20,12 +22,19 @@ public class Solution {
         int input = Integer.parseInt(reader.readLine());
         reader.close();
 
-        System.out.println(factorial(input));
+        if (input < 0)
+            System.out.println("0");
+        else if (input <= 150)
+            System.out.println(factorial(input));
     }
 
     public static String factorial(int n) {
         //add your code here
+        BigInteger result = BigInteger.ONE;
 
-        return "";
+        for (int i = 1; i <= n; i++)
+            result = result.multiply(BigInteger.valueOf(i));
+
+        return result.toString();
     }
 }
