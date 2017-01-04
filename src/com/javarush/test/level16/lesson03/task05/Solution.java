@@ -1,6 +1,7 @@
 package com.javarush.test.level16.lesson03.task05;
 
 import java.util.Date;
+import java.util.concurrent.RunnableFuture;
 
 /* Поговорим о музыке?
 1. Измените класс Violin так, чтоб он стал таском для нити. Используйте интерфейс MusicalInstrument
@@ -17,7 +18,7 @@ public class Solution {
         violin.start();
     }
 
-    public static class Violin {
+    public static class Violin implements MusicalInstrument {
         private String owner;
 
         public Violin(String owner) {
@@ -32,6 +33,15 @@ public class Solution {
         public Date stopPlaying() {
             System.out.println(this.owner + " stops playing");
             return new Date();
+        }
+
+        @Override
+        public void run()
+        {
+            Date start = startPlaying();
+            sleepNSeconds(1);
+            Date end = stopPlaying();
+            System.out.println("Playing " + (end.getTime() - start.getTime()) + " ms");
         }
     }
 
