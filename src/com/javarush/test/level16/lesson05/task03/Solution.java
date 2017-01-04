@@ -12,6 +12,7 @@ public class Solution {
 
     public static void main(String[] args) throws InterruptedException {
         Politic ivanov = new Politic("Иванов");
+        ivanov.join();
         Politic petrov = new Politic("Петров");
         Politic sidorov = new Politic("Сидоров");
 
