@@ -1,9 +1,6 @@
 package com.javarush.test.level16.lesson13.home10;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 /* Последовательный вывод файлов
 1. Разберись, что делает программа.
@@ -20,23 +17,43 @@ import java.io.IOException;
 [все тело второго файла]
 */
 
-public class Solution {
+public class Solution
+{
     public static String firstFileName;
     public static String secondFileName;
 
-    public static void main(String[] args) throws InterruptedException {
+    static
+    {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+        try
+        {
+            firstFileName = reader.readLine();
+            secondFileName = reader.readLine();
+            reader.close();
+        }
+        catch (IOException e)
+        {
+        }
+    }
+
+    public static void main(String[] args) throws InterruptedException
+    {
         systemOutPrintln(firstFileName);
         systemOutPrintln(secondFileName);
     }
 
-    public static void systemOutPrintln(String fileName) throws InterruptedException {
+    public static void systemOutPrintln(String fileName) throws InterruptedException
+    {
         ReadFileInterface f = new ReadFileThread();
         f.setFileName(fileName);
         f.start();
+        f.join();
         System.out.println(f.getFileContent());
     }
 
-    public static interface ReadFileInterface {
+    public static interface ReadFileInterface
+    {
 
         void setFileName(String fullFileName);
 
@@ -45,5 +62,50 @@ public class Solution {
         void join() throws InterruptedException;
 
         void start();
+    }
+
+    public static class ReadFileThread extends Thread implements ReadFileInterface
+    {
+        private String fileName;
+        private String fileContent;
+
+        @Override
+        public void setFileName(String fullFileName)
+        {
+            fileName = fullFileName;
+        }
+
+        @Override
+        public String getFileContent()
+        {
+            return fileContent.trim();
+        }
+
+        @Override
+        public void run()
+        {
+            BufferedReader fileReader = null;
+            fileContent = "";
+            try
+            {
+                fileReader = new BufferedReader(new FileReader(fileName));
+                String sCurrentLine;
+
+                while ((sCurrentLine = fileReader.readLine()) != null)
+                {
+                    fileContent += sCurrentLine + " ";
+                }
+
+                fileReader.close();
+            }
+            catch (FileNotFoundException e)
+            {
+                e.printStackTrace();
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
     }
 }

@@ -20,18 +20,22 @@ import java.util.List;
 2.4. Когда найден победитель, то игра останавливается, и остальные игроки считаются побежденными. Выведите для них [getName() + ":проиграл"].
 */
 
-public class Solution {
-    public static void main(String[] args) throws InterruptedException {
+public class Solution
+{
+    public static void main(String[] args) throws InterruptedException
+    {
         OnlineGame onlineGame = new OnlineGame();
         onlineGame.start();
     }
 
-    public static class OnlineGame extends Thread {
+    public static class OnlineGame extends Thread
+    {
         public static volatile boolean isWinnerFound = false;
 
         public static List<String> steps = new ArrayList<String>();
 
-        static {
+        static
+        {
             steps.add("Начало игры");
             steps.add("Сбор ресурсов");
             steps.add("Рост экономики");
@@ -42,12 +46,14 @@ public class Solution {
         protected Gamer gamer2 = new Gamer("Petrov", 1);
         protected Gamer gamer3 = new Gamer("Sidorov", 5);
 
-        public void run() {
+        public void run()
+        {
             gamer1.start();
             gamer2.start();
             gamer3.start();
 
-            while (!isWinnerFound) {
+            while (!isWinnerFound)
+            {
             }
             gamer1.interrupt();
             gamer2.interrupt();
@@ -55,17 +61,34 @@ public class Solution {
         }
     }
 
-    public static class Gamer extends Thread {
+    public static class Gamer extends Thread
+    {
         private int rating;
 
-        public Gamer(String name, int rating) {
+        public Gamer(String name, int rating)
+        {
             super(name);
             this.rating = rating;
         }
 
         @Override
-        public void run() {
+        public void run()
+        {
             //Add your code here - добавь код тут
+            try
+            {
+                for (String s : OnlineGame.steps)
+                {
+                    System.out.println(getName() + ":" + s);
+                    sleep(1000 / rating);
+                }
+                OnlineGame.isWinnerFound = true;
+                System.out.println(getName() + ":победитель!");
+            }
+            catch (InterruptedException e)
+            {
+                System.out.println(getName() + ":проиграл");
+            }
         }
     }
 }

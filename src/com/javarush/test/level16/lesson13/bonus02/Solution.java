@@ -17,4 +17,21 @@ import java.util.List;
 
 public class Solution {
     public static List<Thread> threads = new ArrayList<Thread>(5);
+
+    static {
+        threads.add(new Thread(new Thread1()));
+        threads.add(new Thread(new Thread2()));
+        threads.add(new Thread(new Thread3()));
+        threads.add(new Thread(new Thread4()));
+        threads.add(new Thread(new Thread5()));
+    }
+
+    public static class Thread1 implements Runnable
+    {
+        @Override
+        public void run()
+        {
+
+        }
+    }
 }

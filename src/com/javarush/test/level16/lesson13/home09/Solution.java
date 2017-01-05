@@ -20,6 +20,10 @@ a b c
 d e f
 */
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 public class Solution {
     public static volatile BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
@@ -27,8 +31,28 @@ public class Solution {
         Read3Strings t1 = new Read3Strings();
         Read3Strings t2 = new Read3Strings();
         t1.start();
+        t1.join();
         t2.start();
-        System.out.println(/*print t1 result here*/);
-        System.out.println(/*print t2 result here*/);
+        t2.join();
+        System.out.println(t1.result);
+        System.out.println(t2.result);
+    }
+
+    public static class Read3Strings extends Thread
+    {
+        public String result = "";
+
+        @Override
+        public void run()
+        {
+            try
+            {
+                for (int i = 0; i < 3; i++)
+                    result += reader.readLine() + " ";
+            }
+            catch (IOException e)
+            {
+            }
+        }
     }
 }
