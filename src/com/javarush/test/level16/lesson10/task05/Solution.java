@@ -2,6 +2,7 @@ package com.javarush.test.level16.lesson10.task05;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadFactory;
 
 /* Один для всех, все - для одного
 1. Разберись, как работает программа.
@@ -25,6 +26,8 @@ public class Solution {
 
     public static void ourInterruptMethod() {
         //add your code here - добавь код тут
+        for (Thread t : threads)
+            t.interrupt();
     }
 
     private static void initThreadsAndStart() {
@@ -47,12 +50,11 @@ public class Solution {
 
         public void run() {
             //fix 2 variables - исправь 2 переменных
-            boolean isCurrentThreadInterrupted = false;
-            String threadName = "";
+            boolean isCurrentThreadInterrupted = Thread.currentThread().isInterrupted();
+            String threadName = Thread.currentThread().getName();
 
             try {
                 while (!isCurrentThreadInterrupted) {
-
                     System.out.println("Объект " + commonResource + ", нить " + threadName);
                     Thread.sleep(1000);
                 }
