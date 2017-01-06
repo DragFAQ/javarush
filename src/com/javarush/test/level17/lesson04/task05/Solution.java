@@ -12,8 +12,10 @@ public class Solution {
 
         private static IMF imf;
 
-        public static IMF getFund() {
+        public synchronized static IMF getFund() {
             //add your code here - добавь код тут
+            if (imf == null)
+                imf = new IMF();
             return imf;
         }
 

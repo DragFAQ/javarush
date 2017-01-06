@@ -17,5 +17,12 @@ public class Solution {
         public static OurPresident getOurPresident() {
             return president;
         }
+
+        static {
+            synchronized (Solution.class)
+            {
+                president = new OurPresident();
+            }
+        }
     }
 }
