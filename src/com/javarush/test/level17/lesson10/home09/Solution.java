@@ -1,7 +1,10 @@
 package com.javarush.test.level17.lesson10.home09;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.javarush.test.level16.lesson13.home10.Solution.firstFileName;
 
 /* Транзакционность
 Сделать метод joinData транзакционным, т.е. если произошел сбой, то данные не должны быть изменены.
@@ -15,14 +18,41 @@ import java.util.List;
 Метод joinData должен вызываться в main. Все исключения обработайте в методе main.
 */
 
-public class Solution {
+public class Solution
+{
     public static List<String> allLines = new ArrayList<String>();
     public static List<String> forRemoveLines = new ArrayList<String>();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException
+    {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        String sCurrentLine;
+
+        String allLinesFile = reader.readLine();
+        String removeLinesFile = reader.readLine();
+        reader.close();
+
+        BufferedReader allFileReader = new BufferedReader(new FileReader(allLinesFile));
+        while ((sCurrentLine = allFileReader.readLine()) != null)
+            allLines.add(sCurrentLine);
+        allFileReader.close();
+
+        BufferedReader removeLinesReader = new BufferedReader(new FileReader(removeLinesFile));
+        while ((sCurrentLine = removeLinesReader.readLine()) != null)
+            forRemoveLines.add(sCurrentLine);
+        removeLinesReader.close();
+
+        new Solution().joinData();
     }
 
-    public void joinData () throws CorruptedDataException {
-
+    public void joinData() throws CorruptedDataException
+    {
+        if (allLines.containsAll(forRemoveLines))
+            allLines.removeAll(forRemoveLines);
+        else
+        {
+            allLines.clear();
+            throw new CorruptedDataException();
+        }
     }
 }

@@ -7,7 +7,7 @@ package com.javarush.test.level17.lesson10.bonus03;
 */
 
 public class Restaurant {
-    public static List<Thread> threads = new ArrayList<>();
+/*    public static List<Thread> threads = new ArrayList<>();
 
     public static void main(String[] args) throws Exception {
         Waiter waiterTarget = new Waiter();
@@ -25,5 +25,5 @@ public class Restaurant {
         cookTarget.continueWorking = false;
         Thread.sleep(500);
         waiterTarget.continueWorking = false;
-    }
+    }*/
 }
