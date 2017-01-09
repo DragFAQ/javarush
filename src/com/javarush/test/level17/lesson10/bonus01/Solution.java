@@ -30,41 +30,45 @@ id соответствует индексу в списке
 Пример параметров: -c Миронов м 15/04/1990
 */
 
-public class Solution {
+public class Solution
+{
     public static List<Person> allPeople = new ArrayList<Person>();
-    static {
+
+    static
+    {
         allPeople.add(Person.createMale("Иванов Иван", new Date()));  //сегодня родился    id=0
         allPeople.add(Person.createMale("Петров Петр", new Date()));  //сегодня родился    id=1
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         //start here - начни тут
         String name = "";
-
-        switch (args[0])
-        {
-            case "-c":
-                for (int i = 1; i < args.length - 2; i++)
-                    name += args[i] + " ";
-                int id = createUser(name.trim(), args[args.length - 2], args[args.length - 1]);
-                if (id > 0)
-                    System.out.println(id);
-                break;
-            case "-u":
-                for (int i = 2; i < args.length - 2; i++)
-                    name += args[i] + " ";
-                updateUser(args[1], name.trim(), args[args.length - 2], args[args.length - 1]);
-                break;
-            case "-d":
-                deleteUser(args[1]);
-                break;
-            case "-i":
-                String info;
-                info = infoUser(args[1]);
-                if (info != null)
-                    System.out.println(info);
-                break;
-        }
+        if (args.length > 0)
+            switch (args[0])
+            {
+                case "-c":
+                    for (int i = 1; i < args.length - 2; i++)
+                        name += args[i] + " ";
+                    int id = createUser(name.trim(), args[args.length - 2], args[args.length - 1]);
+                    if (id > 0)
+                        System.out.println(id);
+                    break;
+                case "-u":
+                    for (int i = 2; i < args.length - 2; i++)
+                        name += args[i] + " ";
+                    updateUser(args[1], name.trim(), args[args.length - 2], args[args.length - 1]);
+                    break;
+                case "-d":
+                    deleteUser(args[1]);
+                    break;
+                case "-i":
+                    String info;
+                    info = infoUser(args[1]);
+                    if (info != null)
+                        System.out.println(info);
+                    break;
+            }
     }
 
     private static String infoUser(String id)
@@ -75,7 +79,8 @@ public class Solution {
         try
         {
             userId = Integer.parseInt(id);
-        } catch (NumberFormatException e)
+        }
+        catch (NumberFormatException e)
         {
             return null;
         }
@@ -84,11 +89,13 @@ public class Solution {
         {
             Person user = allPeople.get(userId);
 
-            return  user.getName() + " " +
-                    (user.getSex().equals(Sex.MALE) ?  "м" : "ж") + " " +
-                    dateFormat.format(user.getBirthDay());
-        }
-        else
+            if (user.getBirthDay() == null)
+                return null;
+            else
+                return user.getName() + " " +
+                        (user.getSex().equals(Sex.MALE) ? "м" : "ж") + " " +
+                        dateFormat.format(user.getBirthDay());
+        } else
             return null;
     }
 
@@ -99,7 +106,8 @@ public class Solution {
         try
         {
             userId = Integer.parseInt(id);
-        } catch (NumberFormatException e)
+        }
+        catch (NumberFormatException e)
         {
             return;
         }
@@ -124,7 +132,8 @@ public class Solution {
         try
         {
             userId = Integer.parseInt(id);
-        } catch (NumberFormatException e)
+        }
+        catch (NumberFormatException e)
         {
             return;
         }
@@ -188,6 +197,8 @@ public class Solution {
 
         if (male)
             allPeople.add(Person.createMale(name, birthDate));
+        else
+            allPeople.add(Person.createFemale(name, birthDate));
 
         return allPeople.size() - 1;
     }
