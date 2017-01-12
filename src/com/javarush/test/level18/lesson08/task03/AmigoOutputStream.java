@@ -1,8 +1,6 @@
 package com.javarush.test.level18.lesson08.task03;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 
 /* AmigoOutputStream
 1 Измените класс AmigoOutputStream так, чтобы он стал Wrapper-ом для класса FileOutputStream. Используйте наследование.
@@ -12,12 +10,51 @@ import java.io.IOException;
 2.3 закрыть поток методом close()
 */
 
-public class AmigoOutputStream {
+public class AmigoOutputStream extends FileOutputStream
+{
     public static String fileName = "C:/tmp/result.txt";
+    private FileOutputStream outFile;
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public AmigoOutputStream(FileOutputStream fileOutputStream) throws IOException
+    {
+        super(fileName);
+        this.outFile = fileOutputStream;
+    }
+
+    public static void main(String[] args) throws IOException
+    {
         new AmigoOutputStream(new FileOutputStream(fileName));
     }
 
-}
+    @Override
+    public void close() throws IOException
+    {
+        outFile.flush();
+        outFile.write("JavaRush © 2012-2013 All rights reserved.".getBytes());
+        outFile.close();
+    }
+
+    @Override
+    public void write(int b) throws IOException
+    {
+        super.write(b);
+    }
+
+    @Override
+    public void write(byte[] b) throws IOException
+    {
+        outFile.write(b);
+    }
+
+    @Override
+    public void write(byte[] b, int off, int len) throws IOException
+    {
+        super.write(b, off, len);
+    }
+
+    @Override
+    protected void finalize() throws IOException
+    {
+        super.finalize();
+    }
 }
