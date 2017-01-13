@@ -17,7 +17,51 @@ quantity - количество, int
 Информация по каждому товару хранится в отдельной строке
 */
 
+import java.io.*;
+import java.util.ArrayList;
+
 public class Solution {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException
+    {
+        if (args.length > 0)
+        {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+            FileInputStream file = new FileInputStream(reader.readLine());
+            reader.close();
+            StringBuilder strFile = new StringBuilder(file.available());
+
+            byte[] buffer = new byte[file.available()];
+            if (file.available() > 0)
+                file.read(buffer);
+            strFile.append(buffer);
+
+            System.out.println(strFile.toString());
+/*
+            ArrayList<String> list = new ArrayList<>();
+            String line = "";
+            while (file.available() > 0)
+            {
+                int buffer = file.read();
+                if (buffer == 10)
+                {
+                    if (!line.trim().isEmpty())
+                        list.add(line.trim());
+                    line = "";
+                }
+                else
+                    line += (char) buffer;
+            }
+            if (!line.trim().isEmpty())
+                list.add(line.trim());
+
+            for (String s : list)
+                if (s.indexOf(args[0] + " ") == 0)
+                {
+                    System.out.println(s);
+                    break;
+                }
+*/
+            file.close();
+        }
     }
 }

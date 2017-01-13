@@ -6,8 +6,31 @@ package com.javarush.test.level18.lesson10.home03;
 Закрыть потоки. Не использовать try-with-resources
 */
 
-public class Solution {
-    public static void main(String[] args) {
+import java.io.*;
 
+public class Solution {
+    public static void main(String[] args) throws IOException
+    {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        FileOutputStream file1 = new FileOutputStream(reader.readLine());
+        FileInputStream file2 = new FileInputStream(reader.readLine());
+        FileInputStream file3 = new FileInputStream(reader.readLine());
+        reader.close();
+
+        while (file2.available() > 0)
+        {
+            int buffer = file2.read();
+            file1.write(buffer);
+        }
+
+        while (file3.available() > 0)
+        {
+            int buffer = file3.read();
+            file1.write(buffer);
+        }
+
+        file1.close();
+        file2.close();
+        file3.close();
     }
 }
