@@ -8,7 +8,26 @@ package com.javarush.test.level18.lesson10.home09;
 Не используйте System.exit();
 */
 
+import java.io.*;
+
 public class Solution {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException
+    {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+        while (true)
+        {
+            String fileName = reader.readLine();
+            try
+            {
+                FileInputStream file = new FileInputStream(fileName);
+            } catch (FileNotFoundException e)
+            {
+                System.out.println(fileName);
+                break;
+            }
+        }
+
+        reader.close();
     }
 }

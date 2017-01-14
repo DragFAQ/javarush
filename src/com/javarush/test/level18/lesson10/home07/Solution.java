@@ -28,39 +28,21 @@ public class Solution {
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             FileInputStream file = new FileInputStream(reader.readLine());
             reader.close();
-            StringBuilder strFile = new StringBuilder(file.available());
 
             byte[] buffer = new byte[file.available()];
             if (file.available() > 0)
                 file.read(buffer);
-            strFile.append(buffer);
 
-            System.out.println(strFile.toString());
-/*
-            ArrayList<String> list = new ArrayList<>();
-            String line = "";
-            while (file.available() > 0)
-            {
-                int buffer = file.read();
-                if (buffer == 10)
-                {
-                    if (!line.trim().isEmpty())
-                        list.add(line.trim());
-                    line = "";
-                }
-                else
-                    line += (char) buffer;
-            }
-            if (!line.trim().isEmpty())
-                list.add(line.trim());
+            String strFile = new String(buffer);
+            String[] lines = strFile.split("\n");
 
-            for (String s : list)
+            for (String s : lines)
                 if (s.indexOf(args[0] + " ") == 0)
                 {
                     System.out.println(s);
                     break;
                 }
-*/
+
             file.close();
         }
     }
