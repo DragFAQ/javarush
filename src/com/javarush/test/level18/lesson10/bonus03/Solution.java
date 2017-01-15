@@ -24,8 +24,73 @@ id productName price quantity
 19847983Куртка для сноубордистов, разм10173.991234
 */
 
-public class Solution {
-    public static void main(String[] args) {
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 
+public class Solution {
+    public static void main(String[] args) throws IOException
+    {
+        if (args.length > 0)
+        {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+            String fileName = reader.readLine();
+            reader.close();
+
+            String name = "";
+            switch (args[0])
+            {
+                case "-u":
+                    for (int i = 2; i < args.length - 2; i++)
+                        name += args[i] + " ";
+                    updateProduct(fileName, args[1], name.trim(), args[args.length - 2], args[args.length - 1]);
+                    break;
+                case "-d":
+                    deleteProduct(fileName, args[1]);
+                    break;
+            }
+        }
+    }
+
+    private static void deleteProduct(String fileName, String id) throws IOException
+    {
+        ArrayList<String> fileContent = readFile(fileName);
+        int delIdx = -1;
+        for (int i = 0; i < fileContent.size(); i++)
+        {
+            if (!(fileContent.get(i).trim()).isEmpty())
+            {
+                if (id.equals((fileContent.get(i).substring(0, 8)).trim()))
+                {
+                    delIdx = i;
+                    break;
+                }
+            }
+        }
+
+        if (delIdx != -1)
+            fileContent.remove(delIdx);
+
+        FileWriter outFile = new FileWriter(fileName);
+        outFile.write(fileContent.toString());
+        outFile.close();
+    }
+
+    private static void updateProduct(String fileName, String id, String productName, String price, String quantity) throws IOException
+    {
+        //String[] fileContent = readFile(fileName);
+    }
+
+    private static ArrayList<String> readFile(String fileName) throws IOException
+    {
+        FileInputStream srcFile = new FileInputStream(fileName);
+        byte[] buffer = new byte[srcFile.available()];
+        if (srcFile.available() > 0)
+            srcFile.read(buffer);
+
+        srcFile.close();
+        String[] list = (new String(buffer)).split("\n");
+
+        return (ArrayList<String>) Arrays.asList(list);
     }
 }
