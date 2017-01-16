@@ -25,8 +25,19 @@ public class Solution {
         System.out.println(table.getHeaderText());
     }
 
-    public static class TableAdapter {
+    public static class TableAdapter implements BTable {
+        private ATable table;
 
+        public TableAdapter(ATable table)
+        {
+            this.table = table;
+        }
+
+        @Override
+        public String getHeaderText()
+        {
+            return "[" + table.getCurrentUserName() + "] : " + table.getTableName();
+        }
     }
 
     public interface ATable {
