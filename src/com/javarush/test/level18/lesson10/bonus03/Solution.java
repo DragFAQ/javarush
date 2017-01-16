@@ -27,6 +27,7 @@ id productName price quantity
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Solution {
     public static void main(String[] args) throws IOException
@@ -69,16 +70,31 @@ public class Solution {
         }
 
         if (delIdx != -1)
+        {
             fileContent.remove(delIdx);
-
-        FileWriter outFile = new FileWriter(fileName);
-        outFile.write(fileContent.toString());
-        outFile.close();
+            saveFile(fileName, fileContent);
+        }
     }
 
     private static void updateProduct(String fileName, String id, String productName, String price, String quantity) throws IOException
     {
-        //String[] fileContent = readFile(fileName);
+        ArrayList<String> fileContent = readFile(fileName);
+        boolean wasChanges = false;
+        for (int i = 0; i < fileContent.size(); i++)
+        {
+            if (!(fileContent.get(i).trim()).isEmpty())
+            {
+                if (id.equals((fileContent.get(i).substring(0, 8)).trim()))
+                {
+                    wasChanges = true;
+                    fileContent.set(i, String.format("%-8.8s%-30.30s%-8.8s%-4.4s", id, productName, price, quantity));
+                    break;
+                }
+            }
+        }
+
+        if (wasChanges)
+            saveFile(fileName, fileContent);
     }
 
     private static ArrayList<String> readFile(String fileName) throws IOException
@@ -89,8 +105,15 @@ public class Solution {
             srcFile.read(buffer);
 
         srcFile.close();
-        String[] list = (new String(buffer)).split("\n");
 
-        return (ArrayList<String>) Arrays.asList(list);
+        return new ArrayList(Arrays.asList((new String(buffer)).split("\n")));
+    }
+
+    private static void saveFile(String fileName, ArrayList<String> fileContent) throws IOException
+    {
+        FileWriter outFile = new FileWriter(fileName);
+        for (String s : fileContent)
+            outFile.append(s + "\n");
+        outFile.close();
     }
 }
