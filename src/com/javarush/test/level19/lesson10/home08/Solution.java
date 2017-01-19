@@ -16,7 +16,23 @@ package com.javarush.test.level19.lesson10.home08;
 огимА
 */
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 public class Solution {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException
+    {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader fileReader = new BufferedReader(new FileReader(reader.readLine()));
+        reader.close();
+        String sCurrentLine;
+
+        while ((sCurrentLine = fileReader.readLine()) != null)
+        {
+            System.out.println(new StringBuilder(sCurrentLine).reverse().toString());
+        }
+        fileReader.close();
     }
 }
