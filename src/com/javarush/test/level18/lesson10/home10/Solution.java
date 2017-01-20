@@ -12,49 +12,39 @@ package com.javarush.test.level18.lesson10.home10;
 */
 
 import java.io.*;
+import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-public class Solution {
+public class Solution
+{
     public static void main(String[] args) throws IOException
     {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        Set<Integer> list = new TreeSet<>();
-        String outFileName = "";
-        Pattern p = Pattern.compile("\\d+$");
-
-        while (true)
+        String name;
+        Set<File> fileset = new TreeSet<>();
+        while (!(name = reader.readLine()).equals("end"))
         {
-            String fileName = reader.readLine();
-            if (fileName.equals("end"))
-                break;
-            if (outFileName.isEmpty())
-                outFileName = fileName.replaceFirst("\\.part\\d+$", "");
-            Matcher m = p.matcher(fileName);
-            if (m.find())
-                list.add(Integer.parseInt(fileName.substring(m.start(), m.end())));
+            File file = new File(name);
+            fileset.add(file);
         }
         reader.close();
 
-        if (!outFileName.isEmpty())
+        Iterator<File> itr = fileset.iterator();
+        String folder = itr.next().getAbsolutePath();
+        folder = folder.substring(0, folder.length() - 6);
+        FileOutputStream resultFile = new FileOutputStream(folder, true);
+        for (File file : fileset)
         {
-            FileOutputStream outFile = new FileOutputStream(outFileName);
-
-            for (Integer i : list)
+            FileInputStream in = new FileInputStream(file);
+            byte[] buffer = new byte[in.available()];
+            while (in.available() > 0)
             {
-                FileInputStream srcFile = new FileInputStream(outFileName + ".part" + i);
-
-                while (srcFile.available() > 0)
-                {
-                    int data = srcFile.read();
-                    outFile.write(data);
-                }
-
-                srcFile.close();
+                in.read(buffer);
+                resultFile.write(buffer);
             }
-            outFile.close();
+            in.close();
         }
+        resultFile.close();
     }
 }
