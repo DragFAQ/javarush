@@ -43,7 +43,7 @@ public class Solution {
             }
 
             if (result instanceof A) {
-                C p = (C) result;
+                A p = (A) result;
                 System.out.println(p.getClass().getSimpleName());
             }
 
