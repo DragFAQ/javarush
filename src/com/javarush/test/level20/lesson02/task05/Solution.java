@@ -9,7 +9,7 @@ import java.io.*;
 Метод main реализован только для вас и не участвует в тестировании
 */
 public class Solution {
-    public static void main(String[] args) {
+    public static void main(java.lang.String[] args) {
         //you can find your_file_name.tmp in your TMP directory or fix outputStream/inputStream according to your real file location
         //вы можете найти your_file_name.tmp в папке TMP или исправьте outputStream/inputStream в соответствии с путем к вашему реальному файлу
         try {
@@ -18,7 +18,7 @@ public class Solution {
             InputStream inputStream = new FileInputStream(your_file_name);
 
             Object object = new Object();
-            object.string1 = new String();   //string #1
+//            object.string1 = new String();   //string #1
             object.string2 = new String();   //string #2
             object.save(outputStream);
             outputStream.flush();
@@ -50,10 +50,38 @@ public class Solution {
 
         public void save(OutputStream outputStream) throws Exception {
             //implement this method - реализуйте этот метод
+            PrintWriter printWriter = new PrintWriter(outputStream);
+            printWriter.println(string1 == null ? "null" : string1.number);
+            printWriter.println(string2 == null ? "null" : string2.number);
+            printWriter.flush();
         }
 
         public void load(InputStream inputStream) throws Exception {
             //implement this method - реализуйте этот метод
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            java.lang.String line;
+            int num;
+            int count = countStrings;
+
+            line = reader.readLine();
+            if (line.equals("null"))
+                string1 = null;
+            else
+            {
+                countStrings = Integer.parseInt(line) - 1;
+                string1 = new String();
+            }
+
+            line = reader.readLine();
+            if (line.equals("null"))
+                string2 = null;
+            else
+            {
+                countStrings = Integer.parseInt(line) - 1;
+                string2 = new String();
+            }
+            reader.close();
+            countStrings = count;
         }
     }
 
