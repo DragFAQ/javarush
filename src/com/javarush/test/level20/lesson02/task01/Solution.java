@@ -56,10 +56,28 @@ public class Solution {
 
         public void save(OutputStream outputStream) throws Exception {
             //implement this method - реализуйте этот метод
+            PrintWriter printWriter = new PrintWriter(outputStream);
+            printWriter.println(name);
+            printWriter.println(assets.size());
+            for (Asset a : assets)
+            {
+                printWriter.println(a.getName());
+                printWriter.println(a.getPrice());
+            }
+            printWriter.flush();
         }
 
         public void load(InputStream inputStream) throws Exception {
             //implement this method - реализуйте этот метод
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            name = reader.readLine();
+            int assetsCount = Integer.parseInt(reader.readLine());
+            for (int i = 0; i < assetsCount; i++)
+            {
+                Asset asset = new Asset(reader.readLine());
+                asset.setPrice(Double.parseDouble(reader.readLine()));
+                assets.add(asset);
+            }
         }
     }
 }
