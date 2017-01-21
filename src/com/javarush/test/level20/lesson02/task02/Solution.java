@@ -1,6 +1,8 @@
 package com.javarush.test.level20.lesson02.task02;
 
 import java.io.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,12 +16,18 @@ public class Solution {
         //you can find your_file_name.tmp in your TMP directory or fix outputStream/inputStream according to your real file location
         //вы можете найти your_file_name.tmp в папке TMP или исправьте outputStream/inputStream в соответствии с путем к вашему реальному файлу
         try {
-            File your_file_name = File.createTempFile("your_file_name", null);
+            /*File your_file_name = File.createTempFile("your_file_name", null);
             OutputStream outputStream = new FileOutputStream(your_file_name);
             InputStream inputStream = new FileInputStream(your_file_name);
-
+*/
             JavaRush javaRush = new JavaRush();
             //initialize users field for the javaRush object here - инициализируйте поле users для объекта javaRush тут
+            User user = new User();
+            user.setBirthDate(new Date());
+            String dt = "Sat Jan 21 19:47:21 EET 2017";
+            //user.setBirthDate(String.valueOf(dt));
+            System.out.println(user.getBirthDate());
+  /*
             javaRush.save(outputStream);
             outputStream.flush();
 
@@ -32,7 +40,7 @@ public class Solution {
 
         } catch (IOException e) {
             //e.printStackTrace();
-            System.out.println("Oops, something wrong with my file");
+            System.out.println("Oops, something wrong with my file");*/
         } catch (Exception e) {
             //e.printStackTrace();
             System.out.println("Oops, something wrong with save/load method");
@@ -44,10 +52,44 @@ public class Solution {
 
         public void save(OutputStream outputStream) throws Exception {
             //implement this method - реализуйте этот метод
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+
+            PrintWriter printWriter = new PrintWriter(outputStream);
+            printWriter.println(users.size());
+            for (User u : users)
+            {
+                printWriter.println(u.getFirstName());
+                printWriter.println(u.getLastName());
+                printWriter.println(dateFormat.format(u.getBirthDate()));
+                printWriter.println(u.isMale());
+                printWriter.println(u.getCountry().getDisplayedName());
+            }
+            printWriter.flush();
         }
 
         public void load(InputStream inputStream) throws Exception {
             //implement this method - реализуйте этот метод
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            int usersCount = Integer.parseInt(reader.readLine());
+            for (int i = 0; i < usersCount; i++)
+            {
+                User user = new User();
+                user.setFirstName(reader.readLine());
+                user.setLastName(reader.readLine());
+                user.setBirthDate(dateFormat.parse(reader.readLine()));
+                user.setMale(Boolean.parseBoolean(reader.readLine()));
+                String country = reader.readLine();
+                if (country.equals(User.Country.UKRAINE.getDisplayedName()))
+                    user.setCountry(User.Country.UKRAINE);
+                else if (country.equals(User.Country.RUSSIA.getDisplayedName()))
+                    user.setCountry(User.Country.RUSSIA);
+                else
+                    user.setCountry(User.Country.OTHER);
+
+                users.add(user);
+            }
         }
     }
 }

@@ -8,7 +8,7 @@ import java.io.*;
 Реализуйте логику записи в файл и чтения из файла для карты properties.
 */
 public class Solution {
-    public static Map<String, String> properties = new HashMap<>();
+//    public static Map<String, String> properties = new HashMap<>();
 
     public void fillInPropertiesMap() {
         //implement this method - реализуйте этот метод
