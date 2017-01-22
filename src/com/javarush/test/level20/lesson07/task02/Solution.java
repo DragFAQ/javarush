@@ -49,12 +49,16 @@ public class Solution {
             this.i = ii;
         }
 
+        public OutputToConsole()
+        {
+        }
+
         /**
          * Outputs to the console a static field of Solution class [greeting].
          * Has to use [charAt] method of String class
          */
         public void outputToConsole(int ii) {
-            for (int i = 0; i < greeting.length(); i++) {} {
+            for (int i = 0; i < greeting.length(); i++) {
                 System.out.write(greeting.charAt(i));
             }
         }

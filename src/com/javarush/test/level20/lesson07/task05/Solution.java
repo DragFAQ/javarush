@@ -38,5 +38,7 @@ public class Solution implements Serializable, Runnable {
 
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
         in.defaultReadObject();
+        runner = new Thread(this);
+        runner.start();
     }
 }
