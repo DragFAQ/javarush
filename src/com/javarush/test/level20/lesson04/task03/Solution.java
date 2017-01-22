@@ -1,6 +1,6 @@
 package com.javarush.test.level20.lesson04.task03;
 
-import java.io.Serializable;
+import java.io.*;
 
 /* Как сериализовать Singleton?
 Два десериализованных объекта singleton и singleton1 имеют разные ссылки в памяти, а должны иметь одинаковые.
@@ -46,6 +46,10 @@ public class Solution implements Serializable {
         }
 
         private Singleton() {
+        }
+
+        protected Object readResolve() {
+            return getInstance();
         }
     }
 }
