@@ -15,9 +15,11 @@ import java.io.*;
 6) проверить, что в файле есть данные из п.2 и п.5
 */
 public class Solution implements Serializable, AutoCloseable {
-    private FileOutputStream stream;
+    String fileName;
+    transient private FileOutputStream stream;
 
     public Solution(String fileName) throws FileNotFoundException {
+        this.fileName = fileName;
         this.stream = new FileOutputStream(fileName);
     }
 
@@ -29,12 +31,11 @@ public class Solution implements Serializable, AutoCloseable {
 
     private void writeObject(ObjectOutputStream out) throws IOException {
         out.defaultWriteObject();
-        out.close();
     }
 
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
         in.defaultReadObject();
-        in.close();
+        stream = new FileOutputStream(this.fileName, true);
     }
 
     @Override
