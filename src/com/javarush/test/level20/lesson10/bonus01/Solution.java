@@ -1,6 +1,10 @@
 package com.javarush.test.level20.lesson10.bonus01;
 
-import java.util.ArrayList;
+import com.sun.org.apache.xerces.internal.impl.xpath.regex.Match;
+
+import java.math.BigInteger;
+import java.util.Set;
+import java.util.TreeSet;
 
 /* Алгоритмы-числа
 Число S состоит из M чисел, например, S=370 и M(количество цифр)=3
@@ -17,9 +21,43 @@ getNumbers должен возвращать все такие числа в п�
 */
 public class Solution {
     public static long[] getNumbers(long N) {
-        ArrayList<Long> list = new ArrayList<>();
+        Set<Long> list = new TreeSet<>();
+        if (N > 0)
+        {
+            int curNum = 1;
 
-        for (long l = 1; l < N; l++)
+            BigInteger sum = BigInteger.ONE;
+            while (sum.compareTo(BigInteger.valueOf(N)) == -1)
+            {
+                list.add(sum.longValue());
+                curNum++;
+                String tmp = Integer.toString(curNum);
+                int digits = tmp.length();
+                sum = BigInteger.ZERO;
+                for (int i = 0; i < digits; i++)
+                    sum = sum.add(BigInteger.valueOf((long) Math.pow(Integer.parseInt(tmp.substring(i, i + 1)), digits)));
+            }
+        }
+        /*if (N > 0)
+        {
+            BigInteger sum = new BigInteger("1");
+            while (sum.compareTo(BigInteger.valueOf(N)) == 1)
+            {
+                list.add(sum.longValue());
+                sum = BigInteger.ZERO;
+                for (int digits = 1; digits < 21; digits++)
+                {
+                    for (int curDig = 1; curDig <= digits; curDig++)
+                    {
+                        for (int nums = 0; nums <= 9; nums++)
+                        {
+                            sum.add(BigInteger.valueOf(Match.pow(nums, digits)));
+                        }
+                    }
+                }
+            }
+        }*/
+       /* for (long l = 1; l < N; l++)
         {
             String tmp = Long.toString(l);
             int digits = tmp.length();
@@ -30,17 +68,18 @@ public class Solution {
             if (sum == l)
                 list.add(l);
         }
-
+*/
         long[] result = new long[list.size()];
-        for (int i = 0; i < list.size(); i++)
-            result[i] = list.get(i);
+        int i = 0;
+        for (Long l : list)
+            result[i++] = l;
 
         return result;
     }
 
     public static void main(String[] args)
     {
-        long[] nums = getNumbers(10);
+        long[] nums = getNumbers(9223372036854775806l);
         for (long i : nums)
             System.out.println(i);
     }
