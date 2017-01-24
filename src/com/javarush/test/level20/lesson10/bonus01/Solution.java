@@ -1,8 +1,5 @@
 package com.javarush.test.level20.lesson10.bonus01;
 
-import com.sun.org.apache.xerces.internal.impl.xpath.regex.Match;
-
-import java.math.BigInteger;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -20,58 +17,59 @@ getNumbers должен возвращать все такие числа в п�
 На выполнение дается 10 секунд и 50 МБ памяти.
 */
 public class Solution {
-    public static long[] getNumbers(long N) {
-        Set<Long> list = new TreeSet<>();
+    public static int[] getNumbers(int N) {
+        Set<Integer> list = new TreeSet<>();
         if (N > 0)
         {
-            int curNum = 1;
+            String tmp = Integer.toString(N);
+            int digitsCount = 1;
+            int[] numbers = new int[tmp.length()];
+            for (int i = 0; i < numbers.length; i++)
+                numbers[i] = 0;
+            numbers[0] = 1;
 
-            BigInteger sum = BigInteger.ONE;
-            while (sum.compareTo(BigInteger.valueOf(N)) == -1)
+            for (int currentNumber = 1; currentNumber <= N; currentNumber++)
             {
-                list.add(sum.longValue());
-                curNum++;
-                String tmp = Integer.toString(curNum);
-                int digits = tmp.length();
-                sum = BigInteger.ZERO;
-                for (int i = 0; i < digits; i++)
-                    sum = sum.add(BigInteger.valueOf((long) Math.pow(Integer.parseInt(tmp.substring(i, i + 1)), digits)));
-            }
-        }
-        /*if (N > 0)
-        {
-            BigInteger sum = new BigInteger("1");
-            while (sum.compareTo(BigInteger.valueOf(N)) == 1)
-            {
-                list.add(sum.longValue());
-                sum = BigInteger.ZERO;
-                for (int digits = 1; digits < 21; digits++)
+                long sum = 0;
+                for (byte i = 0; i < digitsCount; i++)
                 {
-                    for (int curDig = 1; curDig <= digits; curDig++)
+                    if (numbers[i] > 0)
                     {
-                        for (int nums = 0; nums <= 9; nums++)
+                        long pow = 1;
+                        for (byte j = 0; j < digitsCount; j++)
                         {
-                            sum.add(BigInteger.valueOf(Match.pow(nums, digits)));
+                            pow *= numbers[i];
                         }
+                        sum += pow;
                     }
                 }
-            }
-        }*/
-       /* for (long l = 1; l < N; l++)
-        {
-            String tmp = Long.toString(l);
-            int digits = tmp.length();
-            long sum = 0;
-            for (int i = 0; i < digits; i++)
-                sum += Math.pow(Integer.parseInt(tmp.substring(i, i + 1)), digits);
 
-            if (sum == l)
-                list.add(l);
+                if (sum == currentNumber)
+                    list.add(currentNumber);
+
+                boolean isNeedUp;
+                byte curDigit = 0;
+                do
+                {
+                    if (numbers[curDigit] == 9)
+                    {
+                        numbers[curDigit] = 0;
+                        curDigit++;
+                        isNeedUp = true;
+                    } else
+                    {
+                        numbers[curDigit]++;
+                        isNeedUp = false;
+                    }
+                }
+                while (isNeedUp);
+                digitsCount = curDigit + 1 > digitsCount ? curDigit + 1 : digitsCount;
+            }
         }
-*/
-        long[] result = new long[list.size()];
+
+        int[] result = new int[list.size()];
         int i = 0;
-        for (Long l : list)
+        for (Integer l : list)
             result[i++] = l;
 
         return result;
@@ -79,7 +77,7 @@ public class Solution {
 
     public static void main(String[] args)
     {
-        long[] nums = getNumbers(9223372036854775806l);
+        int[] nums = getNumbers(10000000);
         for (long i : nums)
             System.out.println(i);
     }
