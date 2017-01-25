@@ -1,5 +1,8 @@
 package com.javarush.test.level21.lesson02.task02;
 
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+
 /* Сравниваем модификаторы
 Реализовать логику метода isAllModifiersContainSpecificModifier, который проверяет,
 содержит ли переданный параметр allModifiers значение конкретного модификатора specificModifier
@@ -15,7 +18,7 @@ public class Solution {
     }
 
     public static boolean isAllModifiersContainSpecificModifier(int allModifiers, int specificModifier) {
-        return false;
+        return (allModifiers & specificModifier) > 0;
     }
 
     private static Method getMainMethod() {
