@@ -72,7 +72,13 @@ public class Solution {
     public static class SpecificUtilizator extends Utilizator {
         @Override
         public void dispose() {
-            util.throwException();
+            try
+            {
+                util.throwException();
+            }
+            catch (Exception e)
+            {
+            }
         }
     }
 
