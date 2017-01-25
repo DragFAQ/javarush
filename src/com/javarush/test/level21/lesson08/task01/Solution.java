@@ -1,5 +1,7 @@
 package com.javarush.test.level21.lesson08.task01;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -8,7 +10,7 @@ import java.util.Map;
 Данные в карте users также должны клонироваться.
 Метод main изменять нельзя.
 */
-public class Solution {
+public class Solution implements Cloneable {
 
     public static void main(String[] args) {
         Solution solution = new Solution();
@@ -38,5 +40,16 @@ public class Solution {
             this.age = age;
             this.name = name;
         }
+    }
+
+    @Override
+    protected Solution clone() throws CloneNotSupportedException
+    {
+        Solution result = new Solution();
+
+        for (Map.Entry<String, User> pair : users.entrySet())
+            result.users.put(pair.getKey(), new User(pair.getValue().age, pair.getValue().name));
+
+        return result;
     }
 }

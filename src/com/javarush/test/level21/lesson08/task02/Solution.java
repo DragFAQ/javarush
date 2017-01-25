@@ -32,9 +32,24 @@ public class Solution {
         public String getName() {
             return name;
         }
+
+        @Override
+        protected Object clone() throws CloneNotSupportedException
+        {
+            throw new CloneNotSupportedException();
+        }
     }
 
     public static class Tree extends Plant {
+        @Override
+        protected Tree clone() throws CloneNotSupportedException
+        {
+            if (this.getBranches() != null)
+                return new Tree (this.getName(), this.getBranches().clone());
+            else
+                return new Tree (this.getName(), null);
+        }
+
         private String[] branches;
 
         public Tree(String name, String[] branches) {
