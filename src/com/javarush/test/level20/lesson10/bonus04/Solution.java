@@ -1,5 +1,7 @@
 package com.javarush.test.level20.lesson10.bonus04;
 
+import java.io.Serializable;
+import java.util.AbstractList;
 import java.util.List;
 
 /* Свой список
@@ -50,9 +52,10 @@ import java.util.List;
 Должно быть наследование AbstractList<String>, List<String>, Cloneable, Serializable
 Метод main в тестировании не участвует
 */
-public class Solution {
+public class Solution extends AbstractList<String> implements List<String>, Cloneable, Serializable
+{
     public static void main(String[] args) {
-        List<String> list = (List<String>) new Solution();
+        List<String> list = new Solution();
         for (int i = 1; i < 16; i++) {
             list.add(String.valueOf(i));
         }
@@ -64,5 +67,17 @@ public class Solution {
     public String getParent(String value) {
         //have to be implemented
         return null;
+    }
+
+    @Override
+    public String get(int index)
+    {
+        return null;
+    }
+
+    @Override
+    public int size()
+    {
+        return 0;
     }
 }
