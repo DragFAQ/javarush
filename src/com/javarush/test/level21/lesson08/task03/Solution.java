@@ -16,6 +16,12 @@ public class Solution {
             this.j = j;
         }
 
+        @Override
+        protected Object clone() throws CloneNotSupportedException
+        {
+            return super.clone();
+        }
+
         public int getI() {
             return i;
         }
@@ -28,6 +34,12 @@ public class Solution {
     public static class B extends A {
         private String name;
 
+        @Override
+        protected Object clone() throws CloneNotSupportedException
+        {
+            throw new CloneNotSupportedException();
+        }
+
         public B(int i, int j, String name) {
             super(i, j);
             this.name = name;
@@ -38,7 +50,13 @@ public class Solution {
         }
     }
 
-    public static class C extends B {
+    public static class C extends B implements Cloneable {
+        @Override
+        protected Object clone() throws CloneNotSupportedException
+        {
+            return new C(getI(),getJ(),getName());
+        }
+
         public C(int i, int j, String name) {
             super(i, j, name);
         }
