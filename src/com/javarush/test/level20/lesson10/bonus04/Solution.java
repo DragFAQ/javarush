@@ -2,9 +2,7 @@ package com.javarush.test.level20.lesson10.bonus04;
 
 import java.io.Serializable;
 import java.util.AbstractList;
-import java.util.Collection;
 import java.util.List;
-import java.util.ListIterator;
 
 /* Свой список
 Посмотреть, как реализован LinkedList.
@@ -54,7 +52,7 @@ import java.util.ListIterator;
 Должно быть наследование AbstractList<String>, List<String>, Cloneable, Serializable
 Метод main в тестировании не участвует
 */
-public class Solution extends AbstractList<String> implements List<String>, Cloneable, Serializable
+public class Solution extends AbstractList<String> implements Cloneable, Serializable
 {
     public static void main(String[] args) {
         List<String> list = new Solution();
@@ -66,161 +64,20 @@ public class Solution extends AbstractList<String> implements List<String>, Clon
         System.out.println("Expected null, actual is " + ((Solution) list).getParent("11"));
     }
 
-    private Node leftNode = null;
-    private Node rightNode = null;
-    private int maxLevel = 0;
-    private int size = 0;
-
-    @Override
-    public boolean add(String s)
-    {
-        if (maxLevel == 0 && leftNode == null)
-            leftNode = new Node();
-
-        return true;
-    }
-
-    @Override
-    public boolean remove(Object o)
-    {
-        return super.remove(o);
-    }
-
     public String getParent(String value) {
         //have to be implemented
-        return getNode(value).getParent().getName();
-    }
-
-    @Override
-    public int size()
-    {
-        return size;
-    }
-
-    private Node getNode (String name)
-    {
-        Node result = null;
-
-        if (leftNode != null)
-            result = getNodeByName(leftNode, name);
-        if (result == null && rightNode != null)
-            result = getNodeByName(rightNode, name);
-
-        return result;
-    }
-
-    private Node getNodeByName(Node node, String name)
-    {
-        Node result = null;
-
-        if (name.equals(node.getName()))
-            result = node;
-
-        if (result == null && node.getLeftNode() != null)
-            result = getNodeByName(node.getLeftNode(), name);
-
-        if (result == null && node.getRightNode() != null)
-            result = getNodeByName(node.getRightNode(), name);
-
-        return result;
-    }
-
-    @Override
-    public String remove(int index)
-    {
-        throw new UnsupportedOperationException();
+        return null;
     }
 
     @Override
     public String get(int index)
     {
-        throw new UnsupportedOperationException();
+        return null;
     }
 
     @Override
-    public String set(int index, String element)
+    public int size()
     {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public int indexOf(Object o)
-    {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public int lastIndexOf(Object o)
-    {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public boolean addAll(int index, Collection<? extends String> c)
-    {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public ListIterator<String> listIterator(int index)
-    {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public List<String> subList(int fromIndex, int toIndex)
-    {
-        throw new UnsupportedOperationException();
-    }
-}
-
-class Node
-{
-    private Node leftNode = null;
-    private Node rightNode = null;
-    private Node parent;
-    private String name;
-    private int level;
-
-    public Node(Node parent, String name, int level)
-    {
-        this.parent = parent;
-        this.name = name;
-        this.level = level;
-    }
-
-    public void setLeftNode(Node leftNode)
-    {
-        this.leftNode = leftNode;
-    }
-
-    public void setRightNode(Node rightNode)
-    {
-        this.rightNode = rightNode;
-    }
-
-    public int getLevel()
-    {
-        return level;
-    }
-
-    public String getName()
-    {
-        return name;
-    }
-
-    public Node getParent()
-    {
-        return parent;
-    }
-
-    public Node getLeftNode()
-    {
-        return leftNode;
-    }
-
-    public Node getRightNode()
-    {
-        return rightNode;
+        return 0;
     }
 }
