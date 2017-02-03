@@ -13,6 +13,24 @@ import java.util.Map;
 public class Solution {
 
     public static StringBuilder getCondition(Map<String, String> params) {
-        return null;
+        StringBuilder result = new StringBuilder();
+
+        boolean isFirst = true;
+        for (Map.Entry<String, String> pair : params.entrySet())
+        {
+            if (pair.getValue() != null)
+            {
+                if (isFirst)
+                    isFirst = false;
+                else
+                    result.append(" and ");
+                result.append(pair.getKey());
+                result.append(" = '");
+                result.append(pair.getValue());
+                result.append("'");
+            }
+        }
+
+        return result;
     }
 }

@@ -1,5 +1,10 @@
 package com.javarush.test.level22.lesson09.task01;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,7 +24,41 @@ import java.util.List;
 public class Solution {
     public static List<Pair> result = new LinkedList<>();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException
+    {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader fileReader = new BufferedReader(new FileReader(reader.readLine()));
+        reader.close();
+        String sCurrentLine;
+        ArrayList<String> list = new ArrayList<>();
+
+        while ((sCurrentLine = fileReader.readLine()) != null)
+        {
+            String[] words = sCurrentLine.split(" ");
+            for (String word : words)
+            {
+                boolean isFound = false;
+                int i;
+                for (i = 0; i < list.size(); i++)
+                {
+                    StringBuilder b = new StringBuilder(list.get(i));
+                    if (word.equals(b.reverse().toString()))
+                    {
+                        isFound = true;
+                        break;
+                    }
+                }
+                if (isFound)
+                {
+                    Pair p = new Pair();
+                    p.first = word;
+                    p.second = list.get(i);
+                    result.add(p);
+                    list.remove(i);
+                } else
+                    list.add(word);
+            }
+        }
     }
 
     public static class Pair {
