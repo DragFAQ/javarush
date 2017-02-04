@@ -64,20 +64,43 @@ public class Solution {
         for (Word from : wordList)
             for (Word to : wordList)
                 if (from != to)
-                    ;
+                {
+                    String lastLetter = from.value.substring(from.value.length() - 1);
+                    String firstLetter = to.value.substring(0, 1);
+                    if (lastLetter.toUpperCase().equals(firstLetter.toUpperCase()))
+                        from.children.add(to);
+                }
+                
+        for (Word word : wordList)
+            addChain(word, chainList, " " + word.value + " ", 1);
+
+        int maxLevel = 0;
+        String maxStr = "";
+        for (Map.Entry<String, Integer> pair : chainList.entrySet())
+        {
+            if (pair.getValue() > maxLevel)
+            {
+                maxLevel = pair.getValue();
+                maxStr = pair.getKey();
+            }
+        }
+
+        result.append(maxStr.trim());
 
         return result;
     }
 
-    private static ArrayList<Integer> getWordIndexByFirstLetter (String[] array, String letter)
+    private static void addChain(Word word, Map<String, Integer> chainList, String chain, int level)
     {
-        ArrayList<Integer> result = new ArrayList<>();
-
-        for (int i = 0; i < array.length; i++)
-            if (letter.toUpperCase().equals(array[i].substring(0, 1).toUpperCase()))
-                result.add(i);
-
-        return result;
+        boolean wasAdd = false;
+        for (Word w : word.children)
+            if (!chain.contains(" " + w.value + " "))
+            {
+                addChain(w, chainList, chain + w.value + " ", level + 1);
+                wasAdd = true;
+            }
+        if (!wasAdd)
+            chainList.put(chain, level);
     }
 
     static class Word
