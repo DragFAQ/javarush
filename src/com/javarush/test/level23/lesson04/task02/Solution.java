@@ -34,7 +34,7 @@ public class Solution {
 
         //доступ к этому методу возможен только внутри класса Solution, т.к. модификатор иннер класса private
         public String getDescription() {
-            return String.format("My name is %s.", this.name);
+            return String.format("My name is %s. I'm from %s, %s.", this.name, Solution.this.country, Solution.this.city);
         }
     }
 
