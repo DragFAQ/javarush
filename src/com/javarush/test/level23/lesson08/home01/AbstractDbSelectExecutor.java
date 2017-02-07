@@ -1,12 +1,14 @@
 package com.javarush.test.level23.lesson08.home01;
 
 import com.javarush.test.level23.lesson08.home01.vo.NamedItem;
+import com.javarush.test.level23.lesson08.home01.vo.User;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractDbSelectExecutor<T extends NamedItem> {
+public abstract class AbstractDbSelectExecutor<T extends NamedItem>
+{
 
     public abstract String getQuery();
 

@@ -41,9 +41,9 @@ public class Solution {
             }
 
             private void someActions() throws InterruptedException {
-                eat();
-                play();
-                sleep(1000);
+                Solution.this.eat();
+                Solution.this.play();
+                Solution.this.sleep(1000);
             }
         };
         thread.start();
